@@ -16,12 +16,13 @@ int main(){
     int N, W, H;
     FILE *stream;
 
-    stream = freopen("SWEA\\2\\sample_input.txt", "r", stdin);
+    stream = freopen("SWEA\\2\\5656_sample_input.txt", "r", stdin);
     
     if(!stream)
         perror("freopen");
 
     scanf("%d", &T);
+    // printf("%d", T);
 
     for(test_case = 1; test_case <= T; test_case++){
         scanf("%d %d %d", &N, &W, &H);
@@ -32,12 +33,18 @@ int main(){
             }
         }
 
+        /* print test
+
         for(int r = 0; r < H; r++){
             for(int c = 0; c < W; c++){
                 printf("%d ", bricks[r][c]);
             }
             printf("\n");
         }
+
+        */
+
+       
 
     }
     return 0;
