@@ -1,7 +1,10 @@
 /*  
     5660.삼성 기출 핀볼 게임
+    https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRF8s6ezEDFAUo&categoryId=AWXRF8s6ezEDFAUo&categoryType=CODE&&https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWXRF8s6ezEDFAUo&categoryId=AWXRF8s6ezEDFAUo&categoryType=CODE&&&&
     2020-03-16
     진예진
+
+    !미완성 코드
 */
 
 #include <iostream>
