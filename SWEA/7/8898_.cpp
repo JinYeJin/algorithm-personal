@@ -1,3 +1,11 @@
+/*
+SWEA 8898.3차원 농부
+2020-03-25 진예진
+틀렸음
+문제 링크 https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW45TzHae8UDFAQ7&categoryId=AW45TzHae8UDFAQ7&categoryType=CODE
+코드 참고 https://www.acmicpc.net/blog/view/25
+*/
+
 #include <stdio.h>
 #include <algorithm>
 #include <vector>
