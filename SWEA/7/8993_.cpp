@@ -1,7 +1,7 @@
 /*
 SWEA 8993.하지추측
-
 2020-03-26 진예진
+27/31 맞음
 문제 링크 https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AW6GFM8aLacDFAVX&categoryId=AW6GFM8aLacDFAVX&categoryType=CODE#;return%20false;
 */
 
@@ -23,12 +23,12 @@ int main(void){
     scanf("%d" ,&T);
 
     for(int testcase = 1; testcase <= T; testcase++){
-        // bool loop_check[1000000] = {false, };
-        // bool loop_check[300000000000003] = {false, };
         flag = true;
+        loop_check.clear();
         scanf("%d", &N);
 
         while (N > 1){
+            // printf("%d ",N);
             if(N % 2 == 0){
                 N = N / 2;
             }else{
