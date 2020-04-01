@@ -11,33 +11,36 @@ SWEA 8993.하지추측
 using namespace std;
 
 int main(void){
-    int T, flag;
+    int T;
     long long N;
     vector<long long> loop_check;
     FILE *stream;
-
+/*
     stream = freopen("SWEA\\7\\8993_input.txt", "r", stdin);
     if(!stream)
         printf("freopen");
-
+*/
     scanf("%d" ,&T);
 
     for(int testcase = 1; testcase <= T; testcase++){
-        flag = true;
+        bool flag = true;
         loop_check.clear();
-        scanf("%d", &N);
+        scanf("%lld", &N);
 
         while (N > 1){
+            if(!flag) break;
             // printf("%d ",N);
             if(N % 2 == 0){
                 N = N / 2;
+                //else 부분이 2의 n승이 되면 답이 나올 수 없다
+                //2의 n승이면 no 2의 n승이 아니면 yes
             }else{
                 N = 3 * N + 3;
             }
             for(auto x:loop_check){
                 if(x == N){
                     flag = false;
-                    N = 0;
+                    N = 1;
                     break;
                 }
             }

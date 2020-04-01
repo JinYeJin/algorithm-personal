@@ -41,7 +41,6 @@ int main() {
 
         for(int i = 0; i < n; i++) {
             cin >> numbers[i];
-            max += numbers[i];
             // 현재값을 더한 max 부터 감소하면서 탐색한다.
             // 만약 이전에 계산해둔 값이 있으면, 그 값에 현재 값을 더한다.
             for(int j = max; j >= 0; j--) {
@@ -49,6 +48,7 @@ int main() {
                     score[j + numbers[i]] = true;
                 }
             }
+            max += numbers[i];
             // 꼭 위의 for문 이후에 true로 바꿔줘야함
             score[numbers[i]] = true;
         }

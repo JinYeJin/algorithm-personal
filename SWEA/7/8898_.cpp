@@ -94,12 +94,14 @@ int main(void){
             auto lower = candidate.lower_bound(lower_point);
             auto upper = candidate.upper_bound(upper_point);
 
+/* 이 부분이 문제
             for(auto it = lower; it != upper; it++){
                 int d = dist(now, *it);
                 if(d < ans){
                     ans = d;
                 }
             }
+            */
             candidate.insert(now);
         }
         printf("%d\n", ans);
