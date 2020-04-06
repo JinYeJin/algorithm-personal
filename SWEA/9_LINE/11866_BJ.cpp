@@ -33,10 +33,11 @@ int main(void){
         if(check_end > N - 1) break;
         if(people[idx] == true){
             if(order == K){
-                printf("%d, ", idx + 1);
+                printf("%d", idx + 1);
                 order = 1;
                 people[idx] = false;
                 check_end++;
+                if(check_end <= N - 1) printf(", ");
             }
             else{
                 order ++;
@@ -44,7 +45,7 @@ int main(void){
         }        
         idx = idx == N-1 ? -1: idx;
     }
-    printf("\b\b");
+    // printf("\b\b");
     printf(">");
     return 0;
 }
