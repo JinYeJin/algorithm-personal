@@ -12,8 +12,10 @@ using namespace std;
 
 int main(void){
     int N, temp, count_done;
-    vector<int> original(1001, 0);
-    vector<int> difference(1001, 0);
+    // vector<int> original(1001, 0);
+    // vector<int> difference(1001, 0);
+    int original[2000];
+    int difference[2000];
     bool is_plus;
     int answer;
     FILE *stream;
