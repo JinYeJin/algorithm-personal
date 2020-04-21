@@ -8,15 +8,6 @@ int main(){
     vector<int> dp(1000000);
     dp.clear();
 
-    /*
-    FILE *stream;
-
-    stream = freopen("SWEA\\13\\1904_input.txt");
-
-    if(!stream)
-        printf("freopen");
-    */
-
     scanf("%d", &N);
 
     dp.push_back(1);
