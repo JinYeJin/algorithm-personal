@@ -1,30 +1,34 @@
 #include <stdio.h>
 #include <vector>
-#include <algorithm>
+#include <cstring>
 
 using namespace std;
 
-typedef struct Interviewer
-{
+typedef struct Interviewer{
     vector<char> name;
     int score;
 }Interviewer;
 
-bool cmp(const Interviewer a, const Interviewer b){
-    return a.score < b.score;
+int T, num, name_length;
+char temp_char, temp_score;
+char check[30], samsung[30];
+Interviewer temp_interviwer;
+vector<char> temp_vec;
+vector<Interviewer> interviewers(10);
+
+int dfs(){
+
 }
 
 int main(){
-    int T, num, name_length;
-    char temp_char, temp_score;
-    Interviewer temp_interviwer;
-    vector<char> temp_vec;
-    vector<Interviewer> interviewers(10);
-
     FILE *stream;
     stream = freopen("SWEA\\16\\4223_input.txt", "r", stdin);
     if(!stream)
         printf("freopen");
+
+    char tmp[10] = { "SAMSUNG" };
+    for (int i = 0; i < strlen(tmp); i++)
+        samsung[tmp[i] - 'A'] ++;
 
     scanf("%d", &T);
     for(int testcase = 1; testcase <T; testcase++){
@@ -44,11 +48,8 @@ int main(){
             interviewers.push_back(temp_interviwer);
         }
 
-        sort(interviewers.begin(), interviewers.end(), cmp);
 
-        for(int i = 0; i < interviewers.size(); i++){
-            
-        }
+
     }
     return 0;
 }
