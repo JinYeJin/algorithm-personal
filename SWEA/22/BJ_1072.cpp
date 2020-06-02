@@ -11,7 +11,7 @@ using namespace std;
 
 int main(){
     int left, mid, right, temp;
-    float x, y;
+    long long x, y;
 
     scanf("%f %f", &x, &y);
 
@@ -19,10 +19,15 @@ int main(){
     left = 0;
     right = 1000000000;
 
+    if(z >= 99){
+        printf("%d", -1);
+        return 0;
+    }
+
     while(left <= right){
         mid = (left + right) / 2;
         temp = (int)(((y + mid) / (x + mid)) * 100);
-        printf("mid: %d, temp: %d\n", mid, temp);
+        //printf("mid: %d, temp: %d\n", mid, temp);
 
         if(z >= temp){
             left = mid + 1;
