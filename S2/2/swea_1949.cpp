@@ -1,3 +1,8 @@
+/*
+2020-06-11 진예진
+[SWEA 1949] https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV5PoOKKAPIDFAUq&&
+*/
+
 #include <stdio.h>
 #include <queue>
 #include <string.h>
@@ -105,6 +110,7 @@ int main(){
         
         
         longest_path = 0;
+        max = 0;
 
         while(!top.empty()){
             memset(visited, false, sizeof(visited));
