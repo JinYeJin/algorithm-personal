@@ -40,7 +40,7 @@ void grouping(Coord current_house, int group_number, int house_cnt){
     for(int i = 0; i < 4; i++){
         Coord new_house = {current_house.x + dx[i], current_house.y + dy[i]};
 
-        if(boundary_check(new_house)) grouping(new_house, group_number, house_cnt + 1);
+        if(!visited[current_house.y][current_house.x]) boundary_check(new_house)) grouping(new_house, group_number, house_cnt + 1);
     }
 }
 
@@ -59,10 +59,13 @@ int main(){
     }
 
     int grouping_number = 0;
+    memset(vistied, false, sizeof(visited);
 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
             // 좌표, 
+            num_of_houses = 0;
+            // 방문하지 않고 complex가 1인 경우(아파트가 있는 경우
             if(!visited[i][j] && complex[i][j] == 1) grouping(Coord(j, i), ++grouping_number, 0);
             houses.push(num_of_houses);
         }
