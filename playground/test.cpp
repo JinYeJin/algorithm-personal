@@ -2,7 +2,9 @@
 #include <cstring>
 #include <string>
 #include <vector>
+
 using namespace std;
+
 vector<string> v;
 bool check(string a, string b) {
 	vector<char> vv[26]; // a꺼

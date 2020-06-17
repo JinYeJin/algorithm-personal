@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <queue>
 #include <vector>
+#include <string.h>
+#include <cstring>
 
 using namespace std;
 
@@ -40,12 +42,13 @@ void grouping(Coord current_house, int group_number, int house_cnt){
     for(int i = 0; i < 4; i++){
         Coord new_house = {current_house.x + dx[i], current_house.y + dy[i]};
 
-        if(!visited[current_house.y][current_house.x]) boundary_check(new_house)) grouping(new_house, group_number, house_cnt + 1);
+        if(!visited[current_house.y][current_house.x] && boundary_check(new_house)) grouping(new_house, group_number, house_cnt + 1);
     }
 }
 
 int main(){
-    FILE *stream = freopen("S2\\2\\2667_input.txt", "r", stdin);
+    // FILE *stream = freopen("S2\\2\\2667_input.txt", "r", stdin);
+    FILE *stream = freopen("S2/2/2667_input.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     priority_queue<int, vector<int>, cmp> houses;
@@ -59,7 +62,7 @@ int main(){
     }
 
     int grouping_number = 0;
-    memset(vistied, false, sizeof(visited);
+    memset(visited, false, sizeof(visited));
 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
