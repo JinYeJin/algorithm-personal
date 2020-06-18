@@ -34,6 +34,7 @@ void ripe_tomato(){
 
     while(!tomatos.empty()){
         temp_tomatos.push(tomatos.front());
+        tomatos.pop();
     }
 
     while(!temp_tomatos.empty()){
@@ -96,6 +97,7 @@ int main(){
     }
 
     memset(visited, false, sizeof(visited));
+    days = -1;
 
     while(!tomatos.empty()){
         ripe_tomato();
