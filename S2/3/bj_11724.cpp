@@ -1,6 +1,6 @@
 /*
 2020-06-18 진예진
-[백준 11724 구슬찾기] https://www.acmicpc.net/problem/11724
+[백준 11724 연결 요소의 개수] https://www.acmicpc.net/problem/11724
 참고 https://penglog.tistory.com/51
 */
 
