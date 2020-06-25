@@ -1,6 +1,6 @@
 /*
 2020-06-15 진예진
-[백준 14502] https://www.acmicpc.net/problem/14502
+[백준 14502 연구소] https://www.acmicpc.net/problem/14502
 참고 https://jongnan.tistory.com/entry/%EB%B0%B1%EC%A4%80-14502-%EC%97%B0%EA%B5%AC%EC%86%8C
 */
 

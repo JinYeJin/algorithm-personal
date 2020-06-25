@@ -20,12 +20,14 @@ typedef struct Fish{
 }Fish;
 
 int N;
-int ocean[][]
-int visited[]
+int ocean[20][20];
+bool visited[20][20];
 // 탐색 우선순위 상, 좌, 우, 하
 int dx[] = {0, -1, 1, 0};
 int dy[] = {-1, 0, 0, 1};
 queue<Shark> path;
+// 거리가 짧은 순으로 정렬되도록 정의
+priority_queue<Fish, vector<Fish>, compare> fishes;
 
 struct compare
 {
@@ -43,10 +45,6 @@ struct compare
     }
 };
 
-int N;
-int sea[20][20];
-// 거리가 짧은 순으로 정렬되도록 정의
-priority_queue<Fish, vector<Fish>, compare> fishes;
 
 int get_distance(Shark shark, Fish fish){
     return my_abs(shark.x - fish.x) + (shark.y - fish.y);
@@ -69,8 +67,7 @@ void update_distance(Shark shark, priority_queue<Fish, vector<Fish>, compare> fi
     }
 }
 
-
-
+/*
 void can_eat(Shark shark, Fish fish){
     // 상어가 물꼬기 있는 데 까지 왔으면
     if(shark.x == fish.x && shark.y == fish.y){
@@ -91,10 +88,12 @@ void can_eat(Shark shark, Fish fish){
         else new_shark.x++;
     }
 }
+*/
 
 // 네 방향을 균일하게 탐색하기 위해서 BFS
-void have_fish(Shark start){
+void swim(Shark start){
     path.push(start);
+    bool is_fish = false;
     
     while(!path.empty()){
         Shark shark = path.front();
@@ -102,8 +101,14 @@ void have_fish(Shark start){
 
         for(int i = 0; i < 4; i++){
             Shark new_shark = {shark.x + dx[i], shark.y + dy[i], shark.size};
+            bool *visit_check = &visited[shark.x][shark.y];
 
-            if(boundary_check(new_shark) || visited[shark.x][shark.y] == true) continue;
+            if(boundary_check(new_shark) || *visit_check == true) continue;
+
+            int* next = &ocean[new_shark.y][new_shark.x];
+
+            // 물고기가 없으면
+            if(next != 0)
         }
 
     }    
@@ -112,22 +117,27 @@ void have_fish(Shark start){
 }
 
 int main(){
-    FILE *stream = freopen("S2\\4\\16236_input.txt", "r", stdin);
+    FILE *stream = freopen("S2\\4\\input\\16236_input.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     scanf("%d", &N);
 
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            scanf("%d", &sea[i][j]);
+            scanf("%d", &ocean[i][j]);
             // 상어이면
-            if(sea[i][j] == 9) Shark shark = {i, j, 2};
-            else if(sea[i][j] == 0) continue;
+            if(ocean[i][j] == 9){
+                Shark shark = {i, j, 2};
+                ocean[i][j] = 0;
+            }
+            else if(ocean[i][j] == 0) continue;
             else{
-                fishes.push(Fish(i, j, sea[i][j]));
+                fishes.push(Fish(i, j, ocean[i][j]));
             }
         }
     }
+
+    swim(Shark(0, 0, 2));
 
 
     return 0; 
