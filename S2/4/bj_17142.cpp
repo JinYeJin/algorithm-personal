@@ -44,6 +44,7 @@ void spread_virus(int infected_lab[][50]){
             Coord next = {current.x + dx[i], current.y + dy[i]};
 
             bool *visit_check = &bfs_visited[next.y][next.x];
+            int *current_cell = &infected_lab[current.y][current.x];
             int *next_cell = &infected_lab[next.y][next.x];
 
             if(boundary_check(next) == false
@@ -51,10 +52,17 @@ void spread_virus(int infected_lab[][50]){
                // 벽이면 못지나감
                || *next_cell == 1) continue;
 
-            // 빈칸 or 비활성 바이러스
-            if(*next_cell == EMPTY || *next_cell == I_VIRUS){
+            //비활성 바이러스
+            else if(*next_cell == I_VIRUS){
+                *next_cell = *current_cell + 1;
+                *visit_check = true;
+                spreading.push(next);
+            }
+
+            // 빈칸
+            else if(*next_cell == EMPTY){
                 // 바이러스 감염시키거
-                *next_cell = infected_lab[current.y][current.x] + 1;
+                *next_cell = *current_cell + 1;
                 *visit_check = true;
                 spreading.push(next);
             }
@@ -67,18 +75,20 @@ void spread_virus(int infected_lab[][50]){
     // 제일 오래 걸린 시간 찾기
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
-            printf("%d ", infected_lab[i][j]);
+            // printf("%d ", infected_lab[i][j]);
             // 하나라도 감염되지 않으면 break 실패
             if(infected_lab[i][j] == EMPTY){
                 is_infected = false;
                 break;
             }
             else{
-                max_time = infected_lab[i][j] > max_time ? infected_lab[i][j] : max_time;
+                // 1번 테케에서 구석의 5까지 계산방지
+                if(lab[i][j] != I_VIRUS) 
+                    max_time = infected_lab[i][j] > max_time ? infected_lab[i][j] : max_time;
             }
         }
         if(!is_infected) break;
-        printf("\n");
+        // printf("\n");
     }
     if(is_infected) least_time = max_time < least_time? max_time : least_time;
 }
@@ -86,7 +96,7 @@ void spread_virus(int infected_lab[][50]){
 // 바이러스 선택은 dfs
 void activate_virus(int index){
     // M개 만큼의 바이러스를 활성화하고 바이러스를 퍼트리
-    if(index >= viruses.size()) return;
+    if(index > viruses.size()) return;
     if(M == picked.size()){
         int temp_lab[50][50];
 
@@ -102,7 +112,7 @@ void activate_virus(int index){
             temp_lab[picked[i].y][picked[i].x] = A_VIRUS;
         }
         spread_virus(temp_lab);
-        printf("\n");
+        // printf("\n");
         return;
     }
 
@@ -127,14 +137,20 @@ int main(){
     viruses.clear();
     picked.clear();
     least_time = 987654321;
+    int empty_count = 0;
 
     // input => 0: 빈칸, 1: 벽, 2: 바이러스
     // 조정 => -3: 비활성 바이러스, -2: 빈칸, -1: 벽, 0: 활성 바이러스
     for(int i = 0; i < N; i++){
         for(int j = 0; j < N; j++){
             scanf("%d", &lab[i][j]);
+            if(lab[i][j] == 0){
+                lab[i][j] = EMPTY;
+                empty_count++;
+            }
+            else if(lab[i][j] == 1) lab[i][j] = WALL;
             // 2 는 비활성 바이러스
-            if(lab[i][j] == 2){
+            else if(lab[i][j] == 2){
                 lab[i][j] = I_VIRUS;
                 // 바이러스 선택을 위해서 벡터에 넣음
                 viruses.push_back(Coord(j, i));
@@ -142,9 +158,17 @@ int main(){
         }
     }
 
+    // 바이러스는 무조건 1개부터 시작
+    // 따라서 빈 공간이 하나도 없으면 바이러스가 다 퍼진 상태
+    if(empty_count == 0){
+        printf("0");
+        return 0;
+    }
+
     activate_virus(0);
     
-    if(is_infected == true) printf("%d", least_time);
-    else printf("%d", -1);
+    if(least_time == 987654321) printf("-1");
+    else printf("%d", least_time);
+
     return 0;
 }

@@ -1,43 +1,132 @@
 #include <iostream>
-#include <cstring>
-#include <string>
+#include <queue>
 #include <vector>
+#include <algorithm>
+
+#define max_int 51
+#define max_val 2147483647
 using namespace std;
-vector<string> v;
-bool check(string a, string b) {
-	vector<char> vv[26];
-	for (int i = 0; i < a.size(); ++i) {
-		if (vv[a[i] - 97].size() > 0 || vv[b[i] - 97].size() > 0) { //존재한다면
-			if (vv[a[i] - 97].size() > 0 && vv[a[i] - 97][0] != b[i]) {
-				return false;
-			}
-			else if (vv[b[i] - 97].size() > 0 && vv[b[i] - 97][0] != a[i]) {
-				return false;
-			}
-		}
-		else {//존재하지 않는다면
-			vv[a[i] - 97].push_back(b[i]);
-			vv[b[i] - 97].push_back(a[i]);
-		}
-	}
-	return true;
+
+//시간 복잡도: O(2^m*n^2)
+//공간 복잡도: O(n^2)
+//사용한 알고리즘: 백트래킹, BFS
+//사용한 자료구조: 큐
+
+int n, m, a[max_int][max_int], check[max_int][max_int], result = max_val;
+
+struct info{
+    int x;
+    int y;
+};
+
+vector<info> virus, pick;
+queue<info> q;
+int dx[] = {0, 0, 1, -1};
+int dy[] = {-1, 1, 0, 0};
+
+void bfs() {
+    
+    while(!q.empty()){
+        int x = q.front().x;
+        int y = q.front().y;
+        q.pop();
+        
+        for(int i=0; i<4; i++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+            
+            if(nx>=0 && nx<n && ny>=0 && ny<n){
+                // 1) 벽은 지나갈 수 없습니다.
+                // 2) 비활성화 된 바이러스는 활성화 바이러스를 만나면 활성화 됩니다.
+                if(a[nx][ny] != 1 && check[nx][ny] == -1){
+                    check[nx][ny] = check[x][y] + 1;
+                    q.push({nx, ny});
+                }
+            }
+        }
+    }
+    
+    bool isClear = true;
+    int max_time = 0;
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            if(a[i][j] == 0){
+                // 만약 빈칸인데 바이러스가 퍼지지 않았으면 실패입니다.
+                if(check[i][j] == -1){
+                    isClear = false;
+                    break;
+                }
+                // 바이러스가 퍼졌으면 최대 시간을 갱신해줍니다.
+                else{
+                    max_time = max(max_time, check[i][j]);
+                }
+            }
+
+        }
+    }
+    // 최소시간을 갱신해줍니다.
+    if(isClear) result = min(result, max_time);
 }
-int main() {
-	int n;
-	cin >> n;
-	for (int i = 0; i < n; ++i) {
-		string s;
-		cin >> s;
-		v.push_back(s);
-	}
-	int cnt = 0;
-	for (int i = 0; i < v.size() - 1; ++i) {//0 1 2 3 4
-		for (int j = i + 1; j < v.size(); ++j) {//1 2 3 4
-			if (check(v[i], v[j])) {
-				//cout << v[i] << ", " << v[j] << endl;
-				cnt++;
-			}
-		}
-	}
-	cout << cnt << endl;
+
+// 재귀를 통해 m개의 활성화 바이러스를 선택해줍니다.
+void go(int idx){
+    if(idx == virus.size()){
+        
+        if(pick.size() == m){
+            
+            // 선택한 m개의 바이러스를 큐에 넣어줍니다.
+            for(int i=0; i<m; i++) q.push(pick[i]);
+            
+            // check 배열 초기화
+            for(int i=0; i<n; i++){
+                for(int j=0; j<n; j++){
+                    check[i][j] = -1;
+                }
+            }
+            
+            // m개의 바이러스에 대해 시작을 0 으로 설정합니다.
+            for(int i=0; i<pick.size(); i++){
+                int x = pick[i].x;
+                int y = pick[i].y;
+                check[x][y] = 0;
+            }
+            
+            // bfs 탐색을 통해 지도 전체에 바이러스가 퍼지는 최소 시간을 계산해줍니다.
+            bfs();
+
+        }
+        return;
+    }
+    
+    // 1) idx번째 바이러스 선택
+    pick.push_back({virus[idx].x, virus[idx].y});
+    go(idx+1);
+    pick.pop_back();
+    
+    // 2) idx번째 바이러스를 선택하지 않고 지나감
+    go(idx+1);
+}
+
+int main(){
+    FILE *stream = freopen("S2\\4\\input\\17142_input.txt", "r", stdin);
+    if(!stream) perror("freopen");
+
+    // 1. 문제를 입력받습니다.
+    scanf("%d %d", &n, &m);
+    
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            scanf("%d", &a[i][j]);
+            
+            // 2. 바이러스일 경우 x, y를 따로 저장해줍니다.
+            if(a[i][j] == 2) virus.push_back({i, j});
+        }
+    }
+    
+    // 3. 전체 바이러스에 대해 활성화 시킬 m개만 선택해줍니다.
+    go(0);
+    
+    // 4. 결과를 출력합니다.
+    if(result == max_val) result = -1;
+    printf("%d\n", result);
 }
