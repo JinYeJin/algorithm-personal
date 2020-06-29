@@ -43,10 +43,10 @@ int main(){
         bricks.push_back(brick);
     }
 
-    // 너비가 넓은 순
+    // 너비가 작은 순
     sort(bricks.begin(), bricks.end(), compare);
 
-    
+
     for(int i = 1; i <= N; i++) dp[i] = 0;
 
     for(int i = 1; i <= N; i++){
