@@ -101,6 +101,7 @@ int main(){
     path.push(Robot(c, r, d));
     cleaned[r][c] = true;
     num_clean++;
+    
     clean();
 
     printf("%d\n", num_clean);
