@@ -1,6 +1,6 @@
 /*
 2020-06-30
-[백준 1475 방 번호] https://github.com/JinYeJin/algorithm-study/tree/master/2020-07-03
+[백준 1475 방 번호] https://www.acmicpc.net/problem/1475
 */
 #include <stdio.h>
 #include <string>
