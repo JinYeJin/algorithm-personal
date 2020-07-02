@@ -1,46 +1,72 @@
-#include <iostream>
-#include <cstring>
-#include <string>
-#include <vector>
-
+#include<iostream>
+#include<string>
+ 
+#define endl "\n"
+#define MAX 5000
+#define Moduler 1000000
 using namespace std;
-
-vector<string> v;
-bool check(string a, string b) {
-	vector<char> vv[26]; // a꺼
-    vector<char> vv2[26]; // b꺼
-	for (int i = 0; i < a.size(); ++i) {
-		if (vv[a[i] - 'a'].size() > 0 || vv2[b[i] - 'a'].size() > 0) { //존재한다면
-			if (vv[a[i] - 'a'].size() > 0 && vv[a[i] - 'a'][0] != b[i]) {
-				return false;
-			}
-			else if (vv2[b[i] - 'a'].size() > 0 && vv2[b[i] - 'a'][0] != a[i]) {
-				return false;
-			}
-		}
-		else {//존재하지 않는다면
-			vv[a[i] - 'a'].push_back(b[i]);
-			vv2[b[i] - 'a'].push_back(a[i]);
-		}
-	}
-	return true;
+ 
+int Arr[MAX];
+int DP[MAX] , Len;
+string Inp;
+ 
+void Input()
+{
+    cin >> Inp;
+    Len = Inp.length();
+    for (int i = 1; i <= Len; i++)
+    {
+        Arr[i] = Inp[i - 1] - '0';
+    }
 }
-int main() {
-	int n;
-	cin >> n;
-	for (int i = 0; i < n; ++i) {
-		string s;
-		cin >> s;
-		v.push_back(s);
-	}
-	int cnt = 0;
-	for (int i = 0; i < v.size() - 1; ++i) {//0 1 2 3 4
-		for (int j = i + 1; j < v.size(); ++j) {//1 2 3 4
-			if (check(v[i], v[j])) {
-				//cout << v[i] << ", " << v[j] << endl;
-				cnt++;
-			}
-		}
-	}
-	cout << cnt << endl;
+ 
+void Solution()
+{
+    if (Len == 1 && Inp[0] == '0')
+    {
+        cout << 0 << endl;
+        exit(0);
+    }
+ 
+    DP[0] = 1;
+    for (int i = 1; i <= Len; i++)
+    {
+        if (Arr[i] >= 1 && Arr[i] <= 9)
+        {
+            DP[i] = (DP[i - 1] + DP[i]) % Moduler;
+        }
+ 
+        if (i == 1) continue;
+ 
+        int Temp = Arr[i] + Arr[i - 1] * 10;
+        if (Temp >= 10 && Temp <= 26)
+        {
+            DP[i] = (DP[i - 2] + DP[i]) % Moduler;
+        }
+    }
+    
+    //for (int i = 1; i < Len; i++)
+    //{
+    //    cout << "DP[" << i << "] = " << DP[i] << endl;
+    //}
+    cout << DP[Len] << endl;
+}
+ 
+void Solve()
+{
+    Input();
+    Solution();
+}
+ 
+int main(void)
+{
+    // ios::sync_with_stdio(false);
+    // cin.tie(NULL);
+    // cout.tie(NULL);
+    FILE *stream = freopen("S2\\5\\input\\2011_input.txt", "r", stdin);
+    if(!stream) perror("freopne");
+ 
+    Solve();
+ 
+    return 0;
 }
