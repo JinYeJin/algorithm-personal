@@ -1,72 +1,59 @@
-#include<iostream>
-#include<string>
- 
-#define endl "\n"
-#define MAX 5000
-#define Moduler 1000000
+#include <iostream>
+
 using namespace std;
- 
-int Arr[MAX];
-int DP[MAX] , Len;
-string Inp;
- 
-void Input()
-{
-    cin >> Inp;
-    Len = Inp.length();
-    for (int i = 1; i <= Len; i++)
-    {
-        Arr[i] = Inp[i - 1] - '0';
-    }
+
+int n,m;//도시의 갯수, 버스의 개수
+int dist[101][101];
+void In() {
+	cin >> n >> m;
+	int a, b, c;
+	for (int tp = 1; tp <= m; tp++) {
+		cin >> a >> b >> c;
+		//map[a][b]값이 0 or c<map[a][b]
+		if(dist[a][b]==0 || c< dist[a][b])
+			dist[a][b] = c;
+	}
 }
- 
-void Solution()
-{
-    if (Len == 1 && Inp[0] == '0')
-    {
-        cout << 0 << endl;
-        exit(0);
-    }
- 
-    DP[0] = 1;
-    for (int i = 1; i <= Len; i++)
-    {
-        if (Arr[i] >= 1 && Arr[i] <= 9)
-        {
-            DP[i] = (DP[i - 1] + DP[i]) % Moduler;
-        }
- 
-        if (i == 1) continue;
- 
-        int Temp = Arr[i] + Arr[i - 1] * 10;
-        if (Temp >= 10 && Temp <= 26)
-        {
-            DP[i] = (DP[i - 2] + DP[i]) % Moduler;
-        }
-    }
-    
-    //for (int i = 1; i < Len; i++)
-    //{
-    //    cout << "DP[" << i << "] = " << DP[i] << endl;
-    //}
-    cout << DP[Len] << endl;
+bool no_repeat(int tp1,int tp2, int tp3) {
+	if (tp1 == tp2 || tp1 == tp3 || tp2 == tp3)
+		return false;
+	else
+		return true;
 }
- 
-void Solve()
-{
-    Input();
-    Solution();
+bool exist(int tp1,int tp2,int tp3) {
+	if (dist[tp2][tp1] != 0 && dist[tp1][tp3] != 0 )
+		return true;
+	else
+		return false;
 }
- 
-int main(void)
-{
-    // ios::sync_with_stdio(false);
-    // cin.tie(NULL);
-    // cout.tie(NULL);
-    FILE *stream = freopen("S2\\5\\input\\2011_input.txt", "r", stdin);
-    if(!stream) perror("freopne");
- 
-    Solve();
- 
-    return 0;
+void floid() {
+	//거쳐가는 곳
+	for(int tp1=1; tp1<=n  ; tp1++)
+		//x에서 출발 하여
+		for (int tp2 = 1; tp2 <= n; tp2++)
+			//y에 도착
+			for (int tp3 = 1; tp3 <= n; tp3++) {
+				//중복 제외 , 값이 존재하는가 
+				if (no_repeat(tp1, tp2, tp3) && exist(tp1,tp2,tp3) ) {
+					if (dist[tp2][tp3] == 0)//다이렉트로 가는게 0이라면
+					{
+						dist[tp2][tp3] = dist[tp2][tp1] + dist[tp1][tp3];
+						continue;
+					}
+					if (dist[tp2][tp1] + dist[tp1][tp3] < dist[tp2][tp3])
+						dist[tp2][tp3]=dist[tp2][tp1] + dist[tp1][tp3];
+				}
+			}
 }
+int main() {
+	ios_base::sync_with_stdio(false);//92->24ms
+	In();
+	floid();
+
+	//출력
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			cout << dist[i][j] << ' ';
+		}
+		cout << '\n';
+	}
