@@ -52,10 +52,10 @@ void clean(){
 
             // 이미 청소한 곳이거나
             // 벽이면 청소할 공간이 없으므로 좌표는 그대로, 회전만 함
-            // if(cleaned[new_coord.y][new_coord.x] == true
-            //    || space[new_coord.y][new_coord.x] == 1){
-            //     cur.d = new_d;
-            // }
+            if(cleaned[new_coord.y][new_coord.x] == true
+               || space[new_coord.y][new_coord.x] == 1){
+                cur.d = new_d;
+            }
             // 청소함
             else{ 
                 path.push(new_coord);
