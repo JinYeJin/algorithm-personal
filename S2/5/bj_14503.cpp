@@ -85,7 +85,7 @@ void clean(){
 }
 
 int main(){
-    FILE *stream = freopen("S2\\5\\input\\14503_input.txt", "r", stdin);
+    FILE *stream = freopen("S2/5/input/14503_input.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     scanf("%d %d", &N, &M); //N: 세로, M: 가로
@@ -106,12 +106,12 @@ int main(){
 
     printf("%d\n", num_clean);
 
-    // for(int i = 0; i < N; i++){
-    //     for(int j = 0; j < M; j++){
-    //         printf("%d ", space[i][j]);
-    //     }
-    //     printf("\n");
-    // }
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < M; j++){
+            printf("%3d ", space[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }

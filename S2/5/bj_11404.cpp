@@ -15,7 +15,8 @@ int costs[101][101];
 int dp[101][101];
 
 int main(){
-    FILE *stream = freopen("S2\\5\\input\\11404_input.txt", "r", stdin);
+    // FILE *stream = freopen("S2\\5\\input\\11404_input.txt", "r", stdin);
+    FILE *stream = freopen("S2/5/input/11404_input.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     // a: 출발도시, b: 도착도시, c: 비용
@@ -54,9 +55,8 @@ int main(){
 
     for(int i = 1; i <= N; i++){
         for(int j = 1; j <= N; j++){
-            if(costs[i][j] == MAX_COST)
-                printf("0 ");
-            printf("%d ", costs[i][j]);
+            if(costs[i][j] == MAX_COST) printf("0 ");
+            else printf("%d ", costs[i][j]);
         }
         printf("\n");
     }
