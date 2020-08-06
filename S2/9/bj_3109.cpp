@@ -12,14 +12,16 @@ int visited[10002][502];
 char a[10002][502];
 
 // 오른쪽 위, 오른쪽, 오른쪽 아래 순으로 탐색
-int dx[] = { 1,1,1 };
-int dy[] = { -1,0,1 };
+int dx[] = { 1, 1, 1 };
+int dy[] = {-1, 0, 1 };
 
 
 int dfs(int y, int x) {
+    // 현재 탐색하는 곳 방문 표시
     map[y][x] = -1;
 
-    if (y == C - 1)return true;
+    // 모두 다 탐색
+    if (y == C - 1) return true;
 
     for (int i = 0; i < 3; i++) {
         int nx = x + dx[i];
