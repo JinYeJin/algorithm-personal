@@ -7,7 +7,8 @@
 using namespace std;
 
 int main(){
-    FILE *stream =freopen("S2\\9\\input\\2613_input.txt", "r", stdin);
+    // FILE *stream =eopen("S2\\9\\input\\2613_input.txt", "r", stdin);
+    FILE *stream =freopen("S2/9/input/2613_input.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     int M, N;

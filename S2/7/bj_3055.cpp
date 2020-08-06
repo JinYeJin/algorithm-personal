@@ -15,104 +15,102 @@ typedef struct Coord{
 }Coord;
 
 char map[50][50];
-int r, c;
+int R, C, answer;
 int dx[] = { -1, 0, 1, 0 };
 int dy[] = { 0, -1, 0, 1 };
 queue<Coord> water;
 queue<Coord> hedgehog;
 
-
-int main(){
-    FILE *stream = freopen("S2\\7\\input\\3055_input.txt", "r", stdin);
-    if(!stream) perror("freopen");
-
-    int R, C;
-    vector<vector<string>> map(50, vector<string>(50, 0));
-
-    scanf("%d %d", &R, &C);
-    scanf("%c", &map)
-
-    return 0;
+bool boundary_check(Coord c){
+    return c.x >= 0 && c.x < C && c.y >= 0 && c.y < R;
 }
- 
-void solve() {
-    r = sc.nextInt();
-    c = sc.nextInt();
-    map = new char[r][c];
- 
-    for (int i = 0; i < r; i++) {
-        char[] input = sc.next().toCharArray();
-        for (int j = 0; j < c; j++) {
-            map[i][j] = input[j];
- 
-            if (input[j] == '*') {
-                water.add(new Coord(i, j));
-            }
- 
-            if (input[j] == 'S') {
-                hedgehog.add(new Coord(i, j));
-            }
-        }
-    }
- 
-    int ans = 0;
-    while (true) {
-        ++ans;
-        if (hedgehog.size() == 0) {
-            System.out.println("KAKTUS");
-            return;
-        }
- 
-        extendWater();
-        if (extendHedgehog()) {
-            System.out.println(ans);
-            return;
-        }
-    }
-}
- 
-public static void extendWater() {
+
+void flood(){
     int size = water.size();
  
-    for (int i = 0; i < size; i++) {
-        Coord p = water.poll();
+    for(int i = 0; i < size; i++){
+        Coord current = water.front();
+        water.pop();
+
+        for(int j = 0; j < 4; j++){
+            Coord new_coord = {current.x + dx[j], current.y + dy[j]};
  
-        for (int j = 0; j < 4; j++) {
-            int nx = dx[j] + p.x;
-            int ny = dy[j] + p.y;
- 
-            if (0 <= nx && nx < c && 0 <= ny && ny < r) {
-                if (map[ny][nx] == '.') {
-                    map[ny][nx] = '*';
-                    water.add(new Coord(ny, nx));
+            if(boundary_check(new_coord)){ 
+                // 빈공간이면 물이 차오름
+                if(map[new_coord.y][new_coord.x] == '.'){ 
+                    map[new_coord.y][new_coord.x] = '*';
+                    water.push(Coord(new_coord.x, new_coord.y));
                 }
             }
         }
     }
 }
  
-public static boolean extendHedgehog() {
+bool move_hedgehog(){
+    // 계속 도는 게 아니라 현재 고슴도치 경로만큼만 돌아야함 
     int size = hedgehog.size();
  
-    for (int i = 0; i < size; i++) {
-        Coord p = hedgehog.poll();
+    for(int i = 0; i < size; i++){
+        Coord current = hedgehog.front();
+        hedgehog.pop();
+
+        for(int j = 0; j < 4; j++){
+            Coord new_coord = {current.x + dx[j], current.y + dy[j]};
  
-        for (int j = 0; j < 4; j++) {
-            int nx = dx[j] + p.x;
-            int ny = dy[j] + p.y;
- 
-            if (0 <= nx && nx < c && 0 <= ny && ny < r) {
-                if (map[ny][nx] == 'D') {
-                    hedgehog.add(new Coord(ny, nx));
+            if(boundary_check(new_coord)){
+                // 도착한 경우
+                if(map[new_coord.y][new_coord.x] == 'D'){
+                    hedgehog.push(Coord(new_coord.x, new_coord.y));
                     return true;
                 }
-                if (map[ny][nx] == '.') {
-                    map[ny][nx] = 'S';
-                    hedgehog.add(new Coord(ny, nx));
+                // 비어있으면 이동
+                if(map[new_coord.y][new_coord.x] == '.'){
+                    map[new_coord.y][new_coord.x] = 'S';
+                    hedgehog.push(Coord(new_coord.x, new_coord.y));
                 }
             }
         }
     }
+    // 다 돌아도 도착 못하면 false
     return false;
 }
  
+
+int main(){
+    // FILE *stream = freopen("S2\\7\\input\\3055_input.txt", "r", stdin);
+    FILE *stream = freopen("S2/7/input/3055_input.txt", "r", stdin);
+    if(!stream) perror("freopen");
+
+
+    scanf("%d %d\n", &R, &C);
+    
+    for(int i = 0; i < R; i++){
+        for(int j = 0; j < C; j++){
+            scanf("%c", &map[i][j]);
+
+            if(map[i][j] == '*') water.push(Coord(j, i));
+            if(map[i][j] == 'S') hedgehog.push(Coord(j, i));
+        }
+        scanf("\n");
+    }
+
+    answer = 0;
+
+    while (true) {
+        answer++;
+        if (hedgehog.size() == 0) {
+            printf("KAKTUS");
+            return 0;
+        }
+ 
+        flood();
+
+        // 움직이다 비버집에 도착하면 True 리턴
+        if(move_hedgehog()){
+            printf("%d", answer);
+            return 0;
+        }
+    }
+
+    return 0;
+}

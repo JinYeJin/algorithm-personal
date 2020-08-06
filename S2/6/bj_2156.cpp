@@ -1,6 +1,7 @@
 /*
 2020-07-08 진예진
 [백준 2156 포도주 시식] https://www.acmicpc.net/problem/2156
+참고 https://blog.naver.com/PostView.nhn?blogId=occidere&logNo=220791788953
 */
 
 #include <stdio.h>
@@ -15,12 +16,16 @@ int main(){
 
     int N;
     int wine[MAX_WINE] = {0, };
+    int dp [MAX_WINE] = {0, };
 
     scanf("%d", &N);
 
-    wine[0] = wine[1] = 0;
-    
-    for(int i = 2; i <= N + 2; i++){
+    for(int i = 1; i <= N; i++) scanf("%d", &wine[i]);
+
+    dp[1] = a[1];
+    dp[2] = a[1] + a[2];
+
+    for(int i = 1; i <= N; i++){
         scanf("%d", &wine[i]);
         wine[i] = max(wine[i-1] + wine[i-2], wine[i] + wine[i-1]);
         wine[i] = max(wine[i], wine[i] + wine[i-2]);

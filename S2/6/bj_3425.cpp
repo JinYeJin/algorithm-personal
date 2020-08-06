@@ -58,11 +58,12 @@ int main(){
 
             for(int j = 0; j < commands.size(); j++){
                 // 스택에 값이 하나라도 있어야 연산가능
-                if(numbers.empty()){
+                // pop 할게 없어도 NUM이 들어온 경우
+                string command = commands[j];
+                if(command != "NUM" && numbers.empty()){
                     error_flag = true;
                     break;
                 }
-                string command = commands[j];
                 temp = numbers.top();
                 numbers.pop();
                 
