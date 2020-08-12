@@ -7,11 +7,10 @@ https://stillchobo.tistory.com/111
 
 using namespace std;
 
+int dp[31][80002];
 int main(){
-    cout << 'a';
-
-    // FILE *stream =freopen("S2\\\\input\\.txt", "r", stdin);
-    FILE *stream =freopen("S2/10/input/2629.txt", "r", stdin);
+    FILE *stream =freopen("S2\\10\\input\\2629.txt", "r", stdin);
+    // FILE *stream =freopen("S2/10/input/2629.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     ios_base :: sync_with_stdio(false); 
@@ -19,7 +18,6 @@ int main(){
     cout.tie(NULL); 
 
     int n; 
-    int dp[31][80002];
     int mid = 40000;
     cin >> n; 
 

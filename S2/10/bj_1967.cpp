@@ -1,3 +1,8 @@
+/*
+[1967 트리의 지름]
+https://lmcoa15.tistory.com/56
+*/
+
 #include <iostream>
 #include <string.h>
 #include <vector>
