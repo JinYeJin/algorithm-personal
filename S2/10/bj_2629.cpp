@@ -7,7 +7,7 @@ https://stillchobo.tistory.com/111
 
 using namespace std;
 
-int dp[31][80002];
+int dp[31][80002]; // dp[i][j] : i 번째 추까지 사용했을 때 j 라는 무게를 측정할 수 있는가?
 int main(){
     FILE *stream =freopen("S2\\10\\input\\2629.txt", "r", stdin);
     // FILE *stream =freopen("S2/10/input/2629.txt", "r", stdin);
