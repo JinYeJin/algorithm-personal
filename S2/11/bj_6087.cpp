@@ -1,6 +1,6 @@
 /*
 [백준 6087 레이저 통신] https://www.acmicpc.net/problem/6087
-메모리 초과
+미완 - 메모리 초과
 */
 #include <stdio.h>
 #include <queue>

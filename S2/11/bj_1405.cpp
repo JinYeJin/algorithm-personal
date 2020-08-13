@@ -1,5 +1,6 @@
 /*
 [백준 1405 미친 로봇] https://www.acmicpc.net/problem/1405
+미완
 2020-08-10
 */
 #include <stdio.h>
