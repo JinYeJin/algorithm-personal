@@ -1,6 +1,6 @@
 /*
 [백준 1405 미친 로봇] https://www.acmicpc.net/problem/1405
-미완
+미완, 확률부분 이해 못함!
 2020-08-10
 */
 #include <stdio.h>
@@ -48,12 +48,11 @@ void move(Coord c, int count, bool overlap, int visited_check[][29]){
     }
 
     for(int i = 0; i < 4; i++){
-        for(int j = 0; j < probability[i]; j++){
-            Coord n = { c.x + dx[i], c.y + dy[i] };
-            move(n, count + 1, overlap, visited_check);
-        }
+        Coord n = { c.x + dx[i], c.y + dy[i] };
+        move(n, count + 1, overlap, visited_check);
     }
 }
+    
 
 int main(){
     FILE *stream =freopen("S2\\11\\input\\1405.txt", "r", stdin);
@@ -71,7 +70,7 @@ int main(){
     fail = 0;
     memset(visited, 0, sizeof(visited));
 
-    move(Coord(0 + OFFSET, 0 + OFFSET), 0, false);
+    move(Coord(0 + OFFSET, 0 + OFFSET), 0, false, visited);
 
     float a = float(12/16);
     float b = 12.343;
