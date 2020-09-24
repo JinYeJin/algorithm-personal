@@ -1,7 +1,8 @@
 /*
 [백준 1893 시저 암호] https://devbelly.tistory.com/25
 참고 https://devbelly.tistory.com/25
-KMP 알고리즘 https://bowbowbow.tistory.com/6
+KMP 알고리즘 1 https://bowbowbow.tistory.com/6
+2 https://m.blog.naver.com/kks227/220917078260
 */
 #include <vector>
 #include <map>
@@ -48,7 +49,7 @@ int main() {
  
             // 새로운 W의 실패함수, KMP 알고리즘에서 prefix, sudix를 찾기위함?
             for (int i = 1, j = 0; i < w_size; i++) {
-                while (j && W[i] != W[j]) j = fail[j - 1]; // 등가 연산자가 우선 실행
+                while (j > 0 && W[i] != W[j]) j = fail[j - 1]; // 등가 연산자가 우선 실행
                 if (W[i] == W[j]) fail[i] = ++j;
             }
 
@@ -57,9 +58,10 @@ int main() {
  
             //S에서 W를 찾는 kmp 알고리즘
             for (int i = 0, j = 0;i < s;++i) {
-                while (j && S[i] != W[j]) j = fail[j - 1];
+                while (j > 0 && S[i] != W[j]) j = fail[j - 1];
                 if (S[i] == W[j]) {
-                    if (j ==w_size - 1) {
+                    // 마지막까지 찾았을 때
+                    if (j == w_size - 1) {
                         //아직 못찾았다면 true
                         if (!FIND) {
                             FIND = true;
