@@ -17,7 +17,7 @@ bool len_check(int idx_a, int idx_b){ return idx_a < len_a && idx_b < len_b; }
 int find_sub_str(int index_a, int index_b, int count){
     if(len_check(index_a, index_b) == false) return count;
     // 두 문자가 다른 경우
-    else if(a[index_a] != b[index_b])
+    else if(check[index_a][index_b] == -1 && a[index_a] != b[index_b])
         count = max(find_sub_str(index_a + 1, index_b, 0), find_sub_str(index_a, index_b + 1, 0));
     // 두 문자가 같은 경우
     else{

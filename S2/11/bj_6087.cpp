@@ -43,7 +43,7 @@ void lase(queue<Laser> &route){
                 continue;
             }else if(n.x == dest.x && n.y == dest.y){ // 목적지에 도착하면
                 least_turn = n.turn < least_turn ? n.turn : least_turn;
-                break;
+                continue;
             }else{ // 위의 세가지 아니면 다음에 갈 곳 추가
                 if(c.direction % 2 != n.direction % 2) n.turn++;
                 route.push(n);
@@ -53,8 +53,18 @@ void lase(queue<Laser> &route){
 
 }
 
+void print_map(){
+    for(int i = 0; i < H; i++){
+        for(int j = 0; j < W; j++){
+            printf("%3d ", visited[i][j]);
+        }
+        printf("\n");
+    }
+}
+
 int main(){
-    FILE *stream =freopen("S2\\11\\input\\6087.txt", "r", stdin);
+    // FILE *stream =freopen("S2\\11\\input\\6087.txt", "r", stdin);
+    FILE *stream =freopen("S2/11/input/6087.txt", "r", stdin);
     if(!stream) perror("freopen");
 
     scanf("%d %d\n", &W, &H);
@@ -81,7 +91,9 @@ int main(){
     memset(visited, 0, sizeof(visited));
     least_turn = 987654321;
 
+
     lase(route);
+
     printf("%d", least_turn);
 
     return 0;
