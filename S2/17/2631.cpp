@@ -17,30 +17,30 @@ int main(){
     cin.tie(0);
     cout.tie(0);
 
-    int Max, N;
-    int Arr[201], DP[201];
+    int max_value, N;
+    int array[201], dp[201];
 
     cin >> N;
     
     for(int i = 0; i < N; i++){
-        cin >> Arr[i];
+        cin >> array[i];
     }
 
-    Max = 0;
-    memset(Arr, 0, sizeof(Arr));
-    memset(DP, 0, sizeof(DP));
+    max_value = 0;
+    memset(array, 0, sizeof(array));
+    memset(dp, 0, sizeof(dp));
 
     for(int i = 1; i <= N; i++){
-        DP[i] = 1;
+        dp[i] = 1;
         for (int j = 1; j <= i; j++){
-            if (Arr[j] < Arr[i] && DP[i] < DP[j] + 1){
-                DP[i] = DP[j] + 1;
+            if (array[j] < array[i] && dp[i] < dp[j] + 1){
+                dp[i] = dp[j] + 1;
             }
         }
-        if (Max < DP[i]) Max = DP[i];
+        if (max_value < dp[i]) max_value = dp[i];
     }
  
-    cout << N - Max;
+    cout << N - max_value;
 
     return 0;
 }

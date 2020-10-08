@@ -9,7 +9,6 @@
 
 using namespace std;
 
-
 typedef struct Coord{
     Coord(int x, int y): x(x), y(y) {}
     int x, y;

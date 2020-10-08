@@ -16,10 +16,7 @@ void count_leaf(int idx){
         num_leaf++;
         return;
     }
-    else if(tree[idx].size() == 1 && tree[idx][1] == erase){
-        num_leaf++;
-        return;
-    }
+
 
     for(int i = 0; i < tree[idx].size(); i++){
         count_leaf(tree[idx][i]);
