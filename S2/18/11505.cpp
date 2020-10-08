@@ -58,7 +58,7 @@ int main(){
         if (cmd == 1)
             update(a, b, 1, 1, N);
         else 
-            cout << query(1, 1, N, a, b));
+            cout << query(1, 1, N, a, b) << "\n";
     }
     return 0;
 }
