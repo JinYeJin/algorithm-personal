@@ -1,5 +1,5 @@
 /*
-[백준 17822 원판 돌리기] www.acmicpc.net/problem/17822
+[백준 17822] www.acmicpc.net/problem/17822
 */
 #include <stdio.h>
 #include <iostream>
@@ -37,19 +37,16 @@ int remove_number(int x, int y){
         if(ny == 0 || ny == N+1) continue;
 
         if(nx == 0) nx = M;
-        else if(nx == M+1) nx = nx % M;
+        else if(nx == M+1) nx = 1;
 
         // 인접한 수가 같으면
-        if(!circular[y][x] != 0 && circular[y][x] == circular[ny][nx]){
-        // if(!visited[ny][nx] && circular[y][x] != 0 && circular[y][x] == circular[ny][nx]){
+        if(!visited[ny][nx] && circular[y][x] == circular[ny][nx]){
             ret++;
-            // visited[y][x] = true;
             circular[y][x] = 0;
-
-            // if(visited[ny][nx] == false)
+            visited[y][x] = true;
             ret += remove_number(nx, ny);
-            // visited[ny][nx] = true;
-            circular[y][x] = 0;
+            circular[ny][nx] = 0;
+            visited[ny][nx] = true;
         }
     }
     return ret;
@@ -58,10 +55,11 @@ int remove_number(int x, int y){
 int main(){
     FILE *stream =freopen("S2\\18\\input\\17822.txt", "r", stdin);
     if(!stream) perror("freopen");
-
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
+
+    bool flag = true;
 
 
     cin >> N >> M >> T;
@@ -86,49 +84,51 @@ int main(){
             for(int x = 1; x <= M; x++){
                 memset(visited, false, sizeof(visited));
                 sum += circular[y][x];
-
+                if(circular[y][x] != 0) 
+                    num++;
                 // 이미 방문한 곳 검사
                 if(circular[y][x] != 0)
                     removed += remove_number(x, y);
-            }
-            for(int k = 0; k < N; k++){
-                for(int l = 0; l < N; l++){
-                    if(visited[k][l] == true)
-                        circular[k][l] = 0;
-                }
-            }
-        }
-
-        for(int y = 1; y <= N; y++){
-            for(int x = 1; x < M; x++){
-                if(circular != 0)
-                    num++;
             }
         }
 
         // 인접한 수가 하나도 없었으면
         if(removed == 0){
-            double average = (double)sum / num;
-            for(int y = 1; y <= N; y++){
-                for(int x = 1; x <= M; x++){
-                    if(circular[y][x] != 0){
-                        if(circular[y][x] > average)
-                            circular[y][x] -= 1;
-                        else if(circular[y][x] < average) 
-                            circular[y][x] += 1;
+            if(num != 0){
+                double average = (double)sum / (double)num;
+                for(int y = 1; y <= N; y++){
+                    for(int x = 1; x <= M; x++){
+                        if(circular[y][x] != 0){
+                            if(circular[y][x] > average)
+                                circular[y][x] -= 1;
+                            else if(circular[y][x] < average) 
+                                circular[y][x] += 1;
+                        }
                     }
+                    // for(int k = 0; k < N; k++){
+                    //     for(int l = 0; l < N; l++){
+                    //         if(visited[k][l])
+                    //             circular[k][l] = 0;
+                    //     }
+                    // }
                 }
+            }
+            else flag = false; 
+        }
+    }
+
+
+
+    int answer = 0;
+
+    if(flag){
+        for(int y = 1; y <= N; y++){
+            for(int x = 1; x <= M; x++){
+                answer += circular[y][x];
             }
         }
     }
 
-    int answer = 0;
-
-    for(int y = 1; y <= N; y++){
-        for(int x = 1; x <= M; x++){
-            answer += circular[y][x];
-        }
-    }
 
     cout << answer;
 

@@ -14,6 +14,7 @@ int dp[101][101][101];
 int main(){
     FILE *stream =freopen("S2\\18\\input\\1328.txt", "r", stdin);
     if(!stream) perror("freopen");
+
     ios_base::sync_with_stdio(false);
     cin.tie(0);
     cout.tie(0);
