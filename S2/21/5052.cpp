@@ -1,5 +1,5 @@
 /*
-[¹éÁØ 5052] ÀüÈ­¹øÈ£ ¸ñ·Ï acmicpc.net/problem/5052
+[ï¿½ï¿½ï¿½ï¿½ 5052] ï¿½ï¿½È­ï¿½ï¿½È£ ï¿½ï¿½ï¿½ acmicpc.net/problem/5052
 */
 #include <stdio.h>
 #include <iostream>
@@ -11,7 +11,8 @@
 using namespace std;
 
 int main(){
-    FILE *stream =freopen("S2\\21\\input\\5052.txt", "r", stdin);
+    // FILE *stream =freopen("S2\\21\\input\\5052.txt", "r", stdin);
+    FILE *stream =freopen("S2/21/input/5052.txt", "r", stdin);
     if(!stream) perror("freopen");
     ios_base::sync_with_stdio(false);
     cin.tie(0);
@@ -25,7 +26,7 @@ int main(){
 
     for(int t = 0; t < T; t++){
         numbers.clear();
-        // ¹øÈ£ ÀÔ·Â
+        // ï¿½ï¿½È£ ï¿½Ô·ï¿½
 
         cin >> N;
         for(int n = 0; n < N; n++){
@@ -41,8 +42,8 @@ int main(){
             for(int i = 0; i < 10; i++){
                 char *char1 = &numbers[n][i];
                 char *char2 = &numbers[n+1][i];
-                // str1ÀÌ str2ÀÇ prefixÀÎ °æ¿ì
-                // str2°¡ str1ÀÇ prefixÀÎ °æ¿ì => ÀÏ°ü¼ºÀÌ ¾ø´Ù.
+                // str1ï¿½ï¿½ str2ï¿½ï¿½ prefixï¿½ï¿½ ï¿½ï¿½ï¿½
+                // str2ï¿½ï¿½ str1ï¿½ï¿½ prefixï¿½ï¿½ ï¿½ï¿½ï¿½ => ï¿½Ï°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
                 if(i >= numbers[n].size() || i >= numbers[n].size()){
                     cout << "NO\n";
                     exit_flag = true;
@@ -51,7 +52,7 @@ int main(){
 
 
                 // cout << numbers[n][1] << "\n";
-                // ´Ù¸¥ °æ¿ì¿£ ´ÙÀ½ ´Ü¾î·Î ³Ñ¾î°¨
+                // ï¿½Ù¸ï¿½ ï¿½ï¿½ì¿£ ï¿½ï¿½ï¿½ï¿½ ï¿½Ü¾ï¿½ï¿½ ï¿½Ñ¾î°¨
                 if(*char1 != *char2) break;
             }
 
