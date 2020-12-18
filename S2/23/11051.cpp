@@ -9,10 +9,11 @@ using namespace std;
 
 int dp[1001][1001];
 
+// top-down
 int binomial(int n, int k){
 	if(k == 0 || n == k) 
 		return 1;
-    if(dp[n][k] == 0) dp[n][k] = (binomial(n-1, k-1)+ binomial(n-1, k))%MOD;
+    if(dp[n][k] == 0) dp[n][k] = (binomial(n-1, k-1) %MOD + binomial(n-1, k) %MOD)%MOD;
 	return dp[n][k];
 }
 
@@ -28,7 +29,7 @@ int main(){
 
     cout << binomial(N, K);
 
-/*
+/* bottom-up
     // 이항계수 조건 0 < K < N
     for(int i = 1; i <= N; i++){
         // 이항계수 조건 2
