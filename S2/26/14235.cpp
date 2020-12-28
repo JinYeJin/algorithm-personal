@@ -26,7 +26,6 @@ int main(){
             while(num_present--){
                 cin >> present;
                 presents.push(present);
-                cout << "present: " << present << "\n";
             }
         }
         else{
