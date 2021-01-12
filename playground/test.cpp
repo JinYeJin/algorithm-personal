@@ -1,16 +1,12 @@
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
 
-int x = 8;
-int ans = 0;
 
 int main(){
-	while(x!=0){
-		x = x/2;
-		ans++;
-	}
+	char a = getchar();
 
-	printf("%d", ans);
+	printf("%c", a);
 	return 0;
 }
