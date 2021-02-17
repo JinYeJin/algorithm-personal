@@ -1,3 +1,7 @@
+/*
+1719 ец╧Х
+*/
+
 #include <stdio.h>
 #include <iostream>
 #define MAX 987654321
@@ -26,13 +30,16 @@ int main(){
 
         container[V][E] = C;
         container[E][V] = C;
+        route[V][E] = E;
+        route[E][V] = V;
     }
 
     for(int k = 1; k <= N; k++){
         for(int i = 1; i <= N; i++){
             for(int j = 1; j <= N; j++){
-                if(container[i][j] < container[i][k] + container[k][j]){
+                if(container[i][j] >  container[i][k] + container[k][j]){
                     container[i][j] = container[i][k] + container[k][j];
+                    route[i][j] = route[i][k];
                 }
             }
         }
@@ -40,9 +47,11 @@ int main(){
     
     for(int i = 1; i <= N; i++){
         for(int j = 1; j <= N; j++){
-            cout << container[i][j];
+            if(i == j) cout << "- ";
+            else cout << route[i][j] << " ";
         }
         cout << "\n";
     }
+
     return 0;
 }
