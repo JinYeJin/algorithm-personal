@@ -30,7 +30,7 @@ int main(){
 
 
     for(int i = 2; i <= S; i++){
-        for(int n = 2; n <  i; n++){
+        for(int n = 2; n < i; n++){
             if(i%n == 0) dp[i] = min(dp[i], dp[i/n]+2);
         }
     }
