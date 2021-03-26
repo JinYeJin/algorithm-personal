@@ -1,5 +1,5 @@
 /*
-1343 Æú¸®¿À¹Ì³ë
+1343 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½
 */
 #include <stdio.h>
 #include <iostream> 
@@ -27,7 +27,7 @@ int main(){
         }
         else if(input[i] == '.'){
             temp.push(-1);
-            if(count == 1){ // ÀÌ°Å Ãß°¡ÇÔ
+            if(count == 1){ // ï¿½Ì°ï¿½ ï¿½ß°ï¿½ï¿½ï¿½
                 cout << -1;
                 return 0;
             }
