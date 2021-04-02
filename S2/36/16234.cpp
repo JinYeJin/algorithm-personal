@@ -79,8 +79,8 @@ void print_visit(){
 
 
 int main(){
-    // FILE *stream =freopen("S2\\36\\input\\16234.txt", "r", stdin);
-    FILE *stream = freopen("C:\\Users\\yeen0\\Documents\\github\\algorithm\\S2\\36\\input\\16234.txt", "r", stdin);
+    FILE *stream =freopen("S2\\36\\input\\16234.txt", "r", stdin);
+    // FILE *stream = freopen("C:\\Users\\yeen0\\Documents\\github\\algorithm\\S2\\36\\input\\16234.txt", "r", stdin);
     if(!stream) perror("freopen");
     ios_base::sync_with_stdio(false);
     cin.tie(0);
